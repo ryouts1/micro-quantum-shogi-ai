@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-04-05T10:04:14.039Z",
+  "variant": "micro-quantum-shogi",
+  "sourceReplay": "sample-ai-duel",
+  "plies": 16,
+  "quantumMoves": 3,
+  "observeMoves": 1,
+  "maxWorlds": 8,
+  "averageWorlds": 3.29,
+  "averageEntropy": 1.41,
+  "finalResult": {
+    "winner": "white",
+    "reason": "王を捕獲"
+  },
+  "controllers": {
+    "black": "learned-hybrid",
+    "white": "mcts"
+  }
+}

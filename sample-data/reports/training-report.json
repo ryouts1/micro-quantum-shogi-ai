@@ -1,0 +1,314 @@
+{
+  "generatedAt": "2026-04-05T09:55:39.601Z",
+  "version": "selfplay-v1",
+  "config": {
+    "selfPlayGames": 84,
+    "maxPlies": 46,
+    "openingBookDepth": 10,
+    "openingBookMinVisits": 3,
+    "openingBookTopActions": 4,
+    "sgdEpochs": 28,
+    "learningRate": 0.07,
+    "l2": 0.0015,
+    "seed": "mqs-learned-selfplay-v1",
+    "reportLimit": 14
+  },
+  "summary": {
+    "version": "selfplay-v1",
+    "generatedAt": "2026-04-05T09:55:39.601Z",
+    "trainer": "scripts/trainModel.js",
+    "selfPlayGames": 84,
+    "sampledPositions": 896,
+    "openingStates": 38,
+    "bookDepth": 10,
+    "priorScale": 52,
+    "benchmarkGames": 0,
+    "benchmarkWinRate": null,
+    "notes": "One-ply stochastic self-play. Lightweight linear + piece-square model; no neural network."
+  },
+  "linear": {
+    "bias": -0.001155,
+    "weights": {
+      "materialDiff": 0.265818,
+      "mobilityDiff": -0.146622,
+      "uncertaintyDiff": 0,
+      "chargeDiff": 0,
+      "centerDiff": 1.180782,
+      "kingGuardDiff": 0.08898,
+      "entropy": 0,
+      "worldCount": 0,
+      "tempo": -0.11406,
+      "progress": 0.318816,
+      "certainDiff": -0.326506
+    }
+  },
+  "actionProfiles": {
+    "base": {
+      "classical": 0.0516
+    },
+    "byPiece": {
+      "move:classical:bishop": 0.3194,
+      "move:classical:gold": 0.1503,
+      "move:classical:king": -0.6022,
+      "move:classical:pawn": 0.2164,
+      "move:classical:rook": -0.0195,
+      "move:classical:silver": 0.275
+    },
+    "captureTarget": {
+      "bishop": -0.1736,
+      "gold": 0,
+      "king": 1.15,
+      "pawn": 0.4542,
+      "rook": 0.0806,
+      "silver": -0.0651
+    }
+  },
+  "openingBookPreview": [
+    {
+      "stateHash": "black :: 1 :: 0 :: 3/3 :: 1.000000:b-bishop:3,4|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,3|b-rook:4,4|b-silver:0,4|w-bishop:1,0|w-gold:3,0|w-king:2,0|w-pawn-1:1,1|w-pawn-2:3,1|w-rook:0,0|w-silver:4,0 :: live",
+      "total": 84,
+      "topAction": {
+        "key": "move:b-rook:4,0",
+        "plays": 83,
+        "score": -0.0115,
+        "rawScore": -0.012
+      }
+    },
+    {
+      "stateHash": "white :: 2 :: 0 :: 3/3 :: 1.000000:b-bishop:3,4|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,3|b-rook:4,0|b-silver:0,4|w-bishop:1,0|w-gold:3,0|w-king:2,0|w-pawn-1:1,1|w-pawn-2:3,1|w-rook:0,0|w-silver:captured :: live",
+      "total": 83,
+      "topAction": {
+        "key": "move:w-gold:4,0",
+        "plays": 83,
+        "score": 0.0115,
+        "rawScore": 0.012
+      }
+    },
+    {
+      "stateHash": "black :: 3 :: 0 :: 3/3 :: 1.000000:b-bishop:3,4|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,3|b-rook:captured|b-silver:0,4|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:1,1|w-pawn-2:3,1|w-rook:0,0|w-silver:captured :: live",
+      "total": 83,
+      "topAction": {
+        "key": "move:b-bishop:1,2",
+        "plays": 41,
+        "score": 0.2889,
+        "rawScore": 0.3171
+      }
+    },
+    {
+      "stateHash": "white :: 4 :: 1 :: 3/3 :: 1.000000:b-bishop:1,2|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,3|b-rook:captured|b-silver:0,4|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:1,1|w-pawn-2:3,1|w-rook:0,0|w-silver:captured :: live",
+      "total": 41,
+      "topAction": {
+        "key": "move:w-pawn-1:1,2",
+        "plays": 41,
+        "score": -0.2889,
+        "rawScore": -0.3171
+      }
+    },
+    {
+      "stateHash": "black :: 5 :: 0 :: 3/3 :: 1.000000:b-bishop:captured|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,3|b-rook:captured|b-silver:0,4|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:1,2|w-pawn-2:3,1|w-rook:0,0|w-silver:captured :: live",
+      "total": 41,
+      "topAction": {
+        "key": "move:b-pawn-1:1,2",
+        "plays": 36,
+        "score": 0.3,
+        "rawScore": 0.3333
+      }
+    },
+    {
+      "stateHash": "white :: 6 :: 0 :: 3/3 :: 1.000000:b-bishop:captured|b-gold:1,4|b-king:2,4|b-pawn-1:1,2|b-pawn-2:3,3|b-rook:captured|b-silver:0,4|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:captured|w-pawn-2:3,1|w-rook:0,0|w-silver:captured :: live",
+      "total": 36,
+      "topAction": {
+        "key": "move:w-rook:0,4",
+        "plays": 36,
+        "score": -0.3,
+        "rawScore": -0.3333
+      }
+    },
+    {
+      "stateHash": "black :: 7 :: 0 :: 3/3 :: 1.000000:b-bishop:captured|b-gold:1,4|b-king:2,4|b-pawn-1:1,2|b-pawn-2:3,3|b-rook:captured|b-silver:captured|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:captured|w-pawn-2:3,1|w-rook:0,4|w-silver:captured :: live",
+      "total": 36,
+      "topAction": {
+        "key": "move:b-gold:0,4",
+        "plays": 36,
+        "score": 0.3,
+        "rawScore": 0.3333
+      }
+    },
+    {
+      "stateHash": "white :: 8 :: 0 :: 3/3 :: 1.000000:b-bishop:captured|b-gold:0,4|b-king:2,4|b-pawn-1:1,2|b-pawn-2:3,3|b-rook:captured|b-silver:captured|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:captured|w-pawn-2:3,1|w-rook:captured|w-silver:captured :: live",
+      "total": 36,
+      "topAction": {
+        "key": "move:w-bishop:3,2",
+        "plays": 15,
+        "score": 0.2632,
+        "rawScore": 0.3333
+      }
+    },
+    {
+      "stateHash": "white :: 4 :: 1 :: 3/3 :: 1.000000:b-bishop:3,4|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,2|b-rook:captured|b-silver:0,4|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:1,1|w-pawn-2:3,1|w-rook:0,0|w-silver:captured :: live",
+      "total": 19,
+      "topAction": {
+        "key": "move:w-bishop:3,2",
+        "plays": 5,
+        "score": 0.3333,
+        "rawScore": 0.6
+      }
+    },
+    {
+      "stateHash": "black :: 9 :: 1 :: 3/3 :: 1.000000:b-bishop:captured|b-gold:0,4|b-king:2,4|b-pawn-1:1,2|b-pawn-2:3,3|b-rook:captured|b-silver:captured|w-bishop:1,0|w-gold:4,0|w-king:1,1|w-pawn-1:captured|w-pawn-2:3,1|w-rook:captured|w-silver:captured :: live",
+      "total": 16,
+      "topAction": {
+        "key": "move:b-pawn-1:1,1",
+        "plays": 16,
+        "score": 0.8,
+        "rawScore": 1
+      }
+    },
+    {
+      "stateHash": "black :: 9 :: 1 :: 3/3 :: 1.000000:b-bishop:captured|b-gold:0,4|b-king:2,4|b-pawn-1:1,2|b-pawn-2:3,3|b-rook:captured|b-silver:captured|w-bishop:3,2|w-gold:4,0|w-king:2,0|w-pawn-1:captured|w-pawn-2:3,1|w-rook:captured|w-silver:captured :: live",
+      "total": 15,
+      "topAction": {
+        "key": "move:b-pawn-2:3,2",
+        "plays": 15,
+        "score": -0.2632,
+        "rawScore": -0.3333
+      }
+    },
+    {
+      "stateHash": "white :: 10 :: 0 :: 3/3 :: 1.000000:b-bishop:captured|b-gold:0,4|b-king:2,4|b-pawn-1:1,2|b-pawn-2:3,2|b-rook:captured|b-silver:captured|w-bishop:captured|w-gold:4,0|w-king:2,0|w-pawn-1:captured|w-pawn-2:3,1|w-rook:captured|w-silver:captured :: live",
+      "total": 15,
+      "topAction": {
+        "key": "move:w-pawn-2:3,2",
+        "plays": 12,
+        "score": 0.5,
+        "rawScore": 0.6667
+      }
+    },
+    {
+      "stateHash": "white :: 4 :: 1 :: 3/3 :: 1.000000:b-bishop:0,1|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,3|b-rook:captured|b-silver:0,4|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:1,1|w-pawn-2:3,1|w-rook:0,0|w-silver:captured :: live",
+      "total": 14,
+      "topAction": {
+        "key": "move:w-bishop:0,1",
+        "plays": 7,
+        "score": 0.6364,
+        "rawScore": 1
+      }
+    },
+    {
+      "stateHash": "black :: 5 :: 0 :: 3/3 :: 1.000000:b-bishop:3,4|b-gold:1,4|b-king:2,4|b-pawn-1:1,3|b-pawn-2:3,2|b-rook:captured|b-silver:captured|w-bishop:1,0|w-gold:4,0|w-king:2,0|w-pawn-1:1,1|w-pawn-2:3,1|w-rook:0,4|w-silver:captured :: live",
+      "total": 14,
+      "topAction": {
+        "key": "move:b-gold:0,4",
+        "plays": 14,
+        "score": -0.2222,
+        "rawScore": -0.2857
+      }
+    }
+  ],
+  "dataset": {
+    "decisiveGames": 84,
+    "draws": 0,
+    "averagePlies": 10.67,
+    "linearMae": 0.9439
+  },
+  "gamePreview": [
+    {
+      "gameIndex": 0,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 9,
+      "target": 1
+    },
+    {
+      "gameIndex": 1,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 9,
+      "target": 1
+    },
+    {
+      "gameIndex": 2,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 9,
+      "target": 1
+    },
+    {
+      "gameIndex": 3,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 9,
+      "target": 1
+    },
+    {
+      "gameIndex": 4,
+      "winner": "white",
+      "reason": "王を捕獲",
+      "plies": 6,
+      "target": -1
+    },
+    {
+      "gameIndex": 5,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 9,
+      "target": 1
+    },
+    {
+      "gameIndex": 6,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 13,
+      "target": 1
+    },
+    {
+      "gameIndex": 7,
+      "winner": "white",
+      "reason": "王を捕獲",
+      "plies": 10,
+      "target": -1
+    },
+    {
+      "gameIndex": 8,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 11,
+      "target": 1
+    },
+    {
+      "gameIndex": 9,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 11,
+      "target": 1
+    },
+    {
+      "gameIndex": 10,
+      "winner": "white",
+      "reason": "王を捕獲",
+      "plies": 10,
+      "target": -1
+    },
+    {
+      "gameIndex": 11,
+      "winner": "white",
+      "reason": "王を捕獲",
+      "plies": 12,
+      "target": -1
+    },
+    {
+      "gameIndex": 12,
+      "winner": "black",
+      "reason": "王を捕獲",
+      "plies": 9,
+      "target": 1
+    },
+    {
+      "gameIndex": 13,
+      "winner": "white",
+      "reason": "王を捕獲",
+      "plies": 8,
+      "target": -1
+    }
+  ]
+}
