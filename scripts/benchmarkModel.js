@@ -1,13 +1,43 @@
-import { writeFile } from 'node:fs/promises';
+import { rename, writeFile } from 'node:fs/promises';
 
 import { chooseBestAction } from '../src/game/ai.js';
 import { TRAINED_MODEL } from '../src/game/trainedModel.js';
 import { applyAction } from '../src/game/rules.js';
 import { createInitialState } from '../src/game/setup.js';
 
+function readCliArgs(argv) {
+  const result = {};
+  for (let index = 0; index < argv.length; index += 1) {
+    const token = argv[index];
+    if (!token.startsWith('--')) {
+      continue;
+    }
+    const key = token.slice(2);
+    const next = argv[index + 1];
+    if (!next || next.startsWith('--')) {
+      result[key] = 'true';
+      continue;
+    }
+    result[key] = next;
+    index += 1;
+  }
+  return result;
+}
+
+const cli = readCliArgs(process.argv.slice(2));
+
+function readNumber(name, fallback) {
+  const raw = cli[name] ?? process.env[`BENCH_${name.toUpperCase().replaceAll('-', '_')}`];
+  if (raw == null || raw === '') {
+    return fallback;
+  }
+  const value = Number(raw);
+  return Number.isFinite(value) ? value : fallback;
+}
+
 const BENCHMARK_CONFIG = {
-  gamesPerMatchup: 1,
-  maxPlies: 24,
+  gamesPerMatchup: readNumber('games-per-matchup', 1),
+  maxPlies: readNumber('max-plies', 20),
   matchups: [
     { label: 'learned-black-vs-expect', black: 'learned-hybrid', white: 'expectiminimax' },
     { label: 'expect-black-vs-learned', black: 'expectiminimax', white: 'learned-hybrid' },
@@ -15,14 +45,20 @@ const BENCHMARK_CONFIG = {
     { label: 'mcts-black-vs-learned', black: 'mcts', white: 'learned-hybrid' },
   ],
   engineSettings: {
-    'expectiminimax': { depth: 1 },
-    'mcts': { iterations: 70 },
-    'learned-hybrid': { depth: 1, iterations: 90 },
+    'expectiminimax': { depth: readNumber('expect-depth', 1) },
+    'mcts': { iterations: readNumber('mcts-iters', 40) },
+    'learned-hybrid': { depth: readNumber('learned-depth', 1), iterations: readNumber('learned-iters', 60) },
   },
 };
 
 function buildModelModuleText(model) {
   return `export const TRAINED_MODEL = ${JSON.stringify(model, null, 2)};\n`;
+}
+
+async function writeAtomic(url, content) {
+  const tempUrl = new URL(`${url.href}.tmp`);
+  await writeFile(tempUrl, content, 'utf8');
+  await rename(tempUrl, url);
 }
 
 function playBenchmarkGame(matchup, index) {
@@ -110,8 +146,8 @@ async function main() {
   updatedModel.meta.benchmarkWinRate = `${Math.round(pointRate * 100)}%`;
   updatedModel.benchmarks = report;
 
-  await writeFile(new URL('../sample-data/reports/benchmark-report.json', import.meta.url), `${JSON.stringify(report, null, 2)}\n`, 'utf8');
-  await writeFile(new URL('../src/game/trainedModel.js', import.meta.url), buildModelModuleText(updatedModel), 'utf8');
+  await writeAtomic(new URL('../sample-data/reports/benchmark-report.json', import.meta.url), `${JSON.stringify(report, null, 2)}\n`);
+  await writeAtomic(new URL('../src/game/trainedModel.js', import.meta.url), buildModelModuleText(updatedModel));
 
   console.log(JSON.stringify(report.summary, null, 2));
 }

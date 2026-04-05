@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-04-05T10:03:34.286Z",
+  "generatedAt": "2026-04-05T11:11:22.722Z",
   "config": {
     "gamesPerMatchup": 1,
-    "maxPlies": 24,
+    "maxPlies": 18,
     "matchups": [
       {
         "label": "learned-black-vs-expect",
@@ -30,24 +30,24 @@
         "depth": 1
       },
       "mcts": {
-        "iterations": 70
+        "iterations": 30
       },
       "learned-hybrid": {
         "depth": 1,
-        "iterations": 90
+        "iterations": 45
       }
     }
   },
   "summary": {
     "totalGames": 4,
-    "learnedWins": 2,
-    "learnedLosses": 2,
-    "draws": 0,
-    "totalPoints": 2,
-    "pointRate": 0.5,
-    "trainedAsBlack": "1-1-0",
-    "trainedAsWhite": "1-1-0",
-    "averagePlies": 14,
+    "learnedWins": 1,
+    "learnedLosses": 0,
+    "draws": 3,
+    "totalPoints": 2.5,
+    "pointRate": 0.625,
+    "trainedAsBlack": "1-0-1",
+    "trainedAsWhite": "0-0-2",
+    "averagePlies": 16.25,
     "note": "low-budget controller check: learned-hybrid vs expectiminimax / mcts with shared trained evaluator"
   },
   "games": [
@@ -56,40 +56,40 @@
       "black": "learned-hybrid",
       "white": "expectiminimax",
       "learnedSide": "black",
-      "winner": "white",
+      "winner": "black",
       "reason": "王を捕獲",
-      "plies": 12,
-      "learnedPoint": 0
+      "plies": 11,
+      "learnedPoint": 1
     },
     {
       "label": "expect-black-vs-learned",
       "black": "expectiminimax",
       "white": "learned-hybrid",
       "learnedSide": "white",
-      "winner": "white",
-      "reason": "王を捕獲",
-      "plies": 12,
-      "learnedPoint": 1
+      "winner": "draw",
+      "reason": "max-ply",
+      "plies": 18,
+      "learnedPoint": 0.5
     },
     {
       "label": "learned-black-vs-mcts",
       "black": "learned-hybrid",
       "white": "mcts",
       "learnedSide": "black",
-      "winner": "black",
-      "reason": "王を捕獲",
-      "plies": 19,
-      "learnedPoint": 1
+      "winner": "draw",
+      "reason": "max-ply",
+      "plies": 18,
+      "learnedPoint": 0.5
     },
     {
       "label": "mcts-black-vs-learned",
       "black": "mcts",
       "white": "learned-hybrid",
       "learnedSide": "white",
-      "winner": "black",
-      "reason": "王を捕獲",
-      "plies": 13,
-      "learnedPoint": 0
+      "winner": "draw",
+      "reason": "max-ply",
+      "plies": 18,
+      "learnedPoint": 0.5
     }
   ]
 }

@@ -4,6 +4,8 @@
 
 今回の版では、探索アルゴリズムを置くだけでなく、自己対局から作った軽量モデルを同梱しています。ニューラルネットではありませんが、学習済みの piece-square table、線形評価重み、序盤ブックを評価関数と手の優先度に反映しています。
 
+同梱している学習済みモデルは、自己対局 1200 局、収集局面 13107、opening book 225 状態、低予算ベンチマーク 4 局で 62.5% を記録した版です。数値は `sample-data/reports/training-report.json` と `sample-data/reports/benchmark-report.json` に残しています。
+
 ## この作品で見せたいこと
 
 - ルール設計: 量子っぽい不確定性を、説明できるルールに落とす
@@ -72,6 +74,8 @@
   - レポートを `sample-data/reports/benchmark-report.json` に保存する
 
 学習済みモデルは `src/game/trainedModel.js` に埋め込み済みです。UI の「学習済みモデル」パネルから、自己対局数、局面数、序盤ブック状態数、簡易ベンチマーク結果を確認できます。
+
+今回同梱している版は `selfplay-v2-xl` で、`npm run train-model -- --games 1200` 相当の大きめ設定で再生成しています。
 
 ### learned-hybrid の中身
 

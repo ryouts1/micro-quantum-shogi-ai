@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, rename, writeFile } from 'node:fs/promises';
 
 import { BOARD_SIZE, PIECE_TYPES, PLAYERS } from '../src/game/constants.js';
 import { extractEvaluationFeatures, evaluateStateRaw } from '../src/game/evaluator.js';
@@ -6,17 +6,56 @@ import { actionToKey, applyAction, applyDeterministicAction, getObserveOutcomes,
 import { createInitialState } from '../src/game/setup.js';
 import { makeSeededRng, stableStateHash } from '../src/game/utils.js';
 
+function readCliArgs(argv) {
+  const result = {};
+  for (let index = 0; index < argv.length; index += 1) {
+    const token = argv[index];
+    if (!token.startsWith('--')) {
+      continue;
+    }
+    const key = token.slice(2);
+    const next = argv[index + 1];
+    if (!next || next.startsWith('--')) {
+      result[key] = 'true';
+      continue;
+    }
+    result[key] = next;
+    index += 1;
+  }
+  return result;
+}
+
+const cli = readCliArgs(process.argv.slice(2));
+
+function readNumber(name, fallback) {
+  const raw = cli[name] ?? process.env[`TRAIN_${name.toUpperCase().replaceAll('-', '_')}`];
+  if (raw == null || raw === '') {
+    return fallback;
+  }
+  const value = Number(raw);
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function readString(name, fallback) {
+  const raw = cli[name] ?? process.env[`TRAIN_${name.toUpperCase().replaceAll('-', '_')}`];
+  return raw == null || raw === '' ? fallback : String(raw);
+}
+
 const TRAINING_CONFIG = {
-  selfPlayGames: 84,
-  maxPlies: 46,
-  openingBookDepth: 10,
-  openingBookMinVisits: 3,
-  openingBookTopActions: 4,
-  sgdEpochs: 28,
-  learningRate: 0.07,
-  l2: 0.0015,
-  seed: 'mqs-learned-selfplay-v1',
-  reportLimit: 14,
+  version: readString('version', 'selfplay-v2-large'),
+  selfPlayGames: readNumber('games', 512),
+  maxPlies: readNumber('max-plies', 48),
+  openingBookDepth: readNumber('book-depth', 12),
+  openingBookMinVisits: readNumber('book-min-visits', 4),
+  openingBookTopActions: readNumber('book-top-actions', 5),
+  openingBookMaxStates: readNumber('book-max-states', 240),
+  sgdEpochs: readNumber('epochs', 36),
+  learningRate: readNumber('lr', 0.065),
+  l2: readNumber('l2', 0.0014),
+  seed: readString('seed', 'mqs-learned-selfplay-v2-large'),
+  reportLimit: readNumber('report-limit', 16),
+  logEvery: readNumber('log-every', 64),
+  workersRequested: readNumber('workers', 1),
 };
 
 const FEATURE_KEYS = Object.keys(extractEvaluationFeatures(createInitialState({ seed: 'feature-shape' })));
@@ -154,6 +193,12 @@ function buildModelModuleText(model) {
   return `export const TRAINED_MODEL = ${JSON.stringify(model, null, 2)};\n`;
 }
 
+async function writeAtomic(url, content) {
+  const tempUrl = new URL(`${url.href}.tmp`);
+  await writeFile(tempUrl, content, 'utf8');
+  await rename(tempUrl, url);
+}
+
 function shuffleInPlace(items, rng) {
   for (let index = items.length - 1; index > 0; index -= 1) {
     const swapIndex = Math.floor(rng() * (index + 1));
@@ -213,7 +258,7 @@ function buildOpeningBook(bookStore, config) {
   const entries = Object.entries(bookStore)
     .filter(([, entry]) => entry.total >= config.openingBookMinVisits)
     .sort((a, b) => b[1].total - a[1].total)
-    .slice(0, 120);
+    .slice(0, config.openingBookMaxStates);
 
   return Object.fromEntries(entries.map(([stateHash, entry]) => {
     const rawActions = Object.entries(entry.actions).map(([key, record]) => {
@@ -352,6 +397,18 @@ async function main() {
         }
       }
     }
+
+    if ((gameIndex + 1) % TRAINING_CONFIG.logEvery === 0 || gameIndex + 1 === TRAINING_CONFIG.selfPlayGames) {
+      const decisive = gameSummaries.filter((game) => game.winner !== 'draw').length;
+      const averagePlies = gameSummaries.reduce((sum, game) => sum + game.plies, 0) / Math.max(gameSummaries.length, 1);
+      console.log(JSON.stringify({
+        progress: `${gameIndex + 1}/${TRAINING_CONFIG.selfPlayGames}`,
+        decisiveGames: decisive,
+        draws: gameSummaries.length - decisive,
+        sampledPositions: linearSamples.length,
+        averagePlies: Number(averagePlies.toFixed(2)),
+      }));
+    }
   }
 
   const linear = trainLinearModel(linearSamples, TRAINING_CONFIG);
@@ -359,17 +416,19 @@ async function main() {
 
   const model = {
     meta: {
-      version: 'selfplay-v1',
+      version: TRAINING_CONFIG.version,
       generatedAt: new Date().toISOString(),
       trainer: 'scripts/trainModel.js',
       selfPlayGames: TRAINING_CONFIG.selfPlayGames,
       sampledPositions: linearSamples.length,
       openingStates: Object.keys(openingBook).length,
       bookDepth: TRAINING_CONFIG.openingBookDepth,
+      openingBookMaxStates: TRAINING_CONFIG.openingBookMaxStates,
       priorScale: 52,
+      workersRequested: TRAINING_CONFIG.workersRequested,
       benchmarkGames: 0,
       benchmarkWinRate: null,
-      notes: 'One-ply stochastic self-play. Lightweight linear + piece-square model; no neural network.',
+      notes: 'Large-batch one-ply stochastic self-play. Lightweight linear + piece-square model; no neural network.',
     },
     linear: {
       bias: linear.bias,
@@ -396,8 +455,8 @@ async function main() {
   });
 
   await mkdir(new URL('../sample-data/reports/', import.meta.url), { recursive: true });
-  await writeFile(new URL('../src/game/trainedModel.js', import.meta.url), buildModelModuleText(model), 'utf8');
-  await writeFile(new URL('../sample-data/reports/training-report.json', import.meta.url), `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+  await writeAtomic(new URL('../src/game/trainedModel.js', import.meta.url), buildModelModuleText(model));
+  await writeAtomic(new URL('../sample-data/reports/training-report.json', import.meta.url), `${JSON.stringify(report, null, 2)}\n`);
 
   console.log(JSON.stringify({
     generatedAt: model.meta.generatedAt,
