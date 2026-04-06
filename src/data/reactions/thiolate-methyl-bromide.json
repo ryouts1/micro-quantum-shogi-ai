@@ -1,0 +1,41 @@
+{
+  "id": "thiolate-methyl-bromide",
+  "name": "Hydrosulfide + methyl bromide",
+  "equationHtml": "HS<sup>−</sup> + CH<sub>3</sub>Br → CH<sub>3</sub>SH + Br<sup>−</sup>",
+  "equationText": "HS- + CH3Br -> CH3SH + Br-",
+  "lead": "sulfur donor と bromide leaving group を組み合わせた JSON 追加例です。より長い donor / leaving 距離を使って同じ reactive-only viewer に載せています。",
+  "reactantsLabel": "hydrosulfide and methyl bromide",
+  "productsLabel": "methanethiol and bromide",
+  "donor": {
+    "element": "S",
+    "symbol": "S",
+    "name": "hydrosulfide",
+    "template": "hydroxide-like",
+    "attachedElement": "H",
+    "attachedBondLength": 1.34,
+    "attachedAngleDeg": 97.0,
+    "attachedBondOrder": 1,
+    "attachedRole": "spectator",
+    "attachedBondLabel": "S–H"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl bromide",
+    "leavingElement": "Br",
+    "leavingSymbol": "Br",
+    "leavingName": "bromide"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.38,
+      "transition": 2.22,
+      "product": 1.82
+    },
+    "carbonLeaving": {
+      "reactant": 1.94,
+      "transition": 2.22,
+      "product": 4.15
+    }
+  },
+  "totalCharge": -1
+}

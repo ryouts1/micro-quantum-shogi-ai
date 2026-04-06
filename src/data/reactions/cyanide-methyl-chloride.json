@@ -1,0 +1,40 @@
+{
+  "id": "cyanide-methyl-chloride",
+  "name": "Cyanide + methyl chloride",
+  "equationHtml": "CN<sup>−</sup> + CH<sub>3</sub>Cl → CH<sub>3</sub>CN + Cl<sup>−</sup>",
+  "equationText": "CN- + CH3Cl -> CH3CN + Cl-",
+  "lead": "Linear donor を持つ cyanide を chloride leaving group に組み合わせた JSON プリセットです。donor-side carbon と nitrile support atom の役割分離は既存テンプレートを再利用します。",
+  "reactantsLabel": "cyanide and methyl chloride",
+  "productsLabel": "acetonitrile and chloride",
+  "donor": {
+    "element": "C",
+    "symbol": "C",
+    "name": "cyanide",
+    "template": "linear-carbon-donor",
+    "supportElement": "N",
+    "supportBondLength": 1.16,
+    "supportBondOrder": 3,
+    "supportRole": "donor-support",
+    "attachedBondLabel": "C≡N"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl chloride",
+    "leavingElement": "Cl",
+    "leavingSymbol": "Cl",
+    "leavingName": "chloride"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.25,
+      "transition": 2.05,
+      "product": 1.47
+    },
+    "carbonLeaving": {
+      "reactant": 1.78,
+      "transition": 2.05,
+      "product": 3.98
+    }
+  },
+  "totalCharge": -1
+}

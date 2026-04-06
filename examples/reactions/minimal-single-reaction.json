@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "Minimal single reaction example",
+  "reactions": [
+    {
+      "id": "example-single-oh-i",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "OH⁻ + CH₃I → CH₃OH + I⁻",
+      "shortTitle": "Example · minimal single reaction",
+      "description": "最小限の 1 反応だけを持つ object-form JSON です。最初の import 動作確認用に向いています。",
+      "substrateLabel": "methyl iodide",
+      "productLabel": "methanol + iodide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃OH",
+        "distances": {
+          "reactant": 3.3,
+          "transition": 2.28,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "I",
+        "display": "I⁻",
+        "atomLabel": "I",
+        "element": "I",
+        "distances": {
+          "reactant": 2.14,
+          "transition": 2.28,
+          "product": 4.45
+        }
+      }
+    }
+  ]
+}

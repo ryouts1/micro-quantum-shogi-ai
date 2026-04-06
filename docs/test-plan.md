@@ -1,41 +1,35 @@
-# テスト方針
+# Test Plan
 
-この作品では「どれだけ大量にテストを書くか」よりも、「壊れると困る中核を最低限押さえること」を重視しています。
+## 方針
 
-## 重点的に見ているもの
+見た目のアプリだが、表示の前提になっている数値部分を先に確認する。
 
-### 1. ルールの基本整合性
+## 確認項目
 
-- 初期局面で合法手が出る
-- 量子移動で world が分岐する
-- 量子チャージが減る
-- 観測で 1 世界へ collapse する
+### reaction preset / geometry
 
-### 2. AI の最低限の納得感
+- preset library が複数件あること
+- 各 preset で reactant / TS / product 距離が設定どおりになること
+- methyl inversion の符号が反応座標で反転すること
+- nucleophile-side hydrogen 数が preset と一致すること
 
-- 即王取りがあるなら Expectiminimax がそれを選ぶ
-- MCTS が固定 seed で再現可能に動く
+### basis / electronic structure
 
-### 3. 状態解析の正しさ
+- 代表 preset の basis function 数が期待どおりであること
+- 各 basis function の自己 overlap が 1 であること
+- `Tr(PS) = 22` が保たれること
+- Mulliken 電荷総和が `-1` に戻ること
+- 反応物→生成物で `Nu–C` と `C–LG` の overlap population が入れ替わること
 
-- 50/50 の 2 世界なら entropy が 1 bit になる
-- heatmap の戻り値が壊れていない
+### reactive-only extraction
 
-### 4. リプレイの安全性
+- reactive donor は occupied、acceptor は virtual から選ばれること
+- H spectator basis に重みが入っていないこと
+- donor / acceptor cloud が概ね規格化されること
+- reactive channel が全 22 電子の一部だけを拾っていること
 
-- リプレイ JSON を書き出して復元できる
-- variant や entries の構造が保たれている
+### rendering support
 
-## 今後テストを増やすなら
-
-- 複数回の量子移動後に world merge が正しく効くか
-- リプレイ読み込み後の UI 操作が破綻しないか
-- 長手数での draw 条件が意図通りか
-- 評価関数の回帰テスト
-
-
-## 学習済みモデルまわり
-
-- `trainedModel.js` に自己対局メタ情報が入っているか
-- 初期局面で learned-hybrid が opening book を参照できるか
-- 学習後の追加ファイルが既存のルールテストを壊していないか
+- valence density の積分が 22 電子へ戻ること
+- reactive flow が大きく破綻しないこと
+- cloud sampler / cloud transition が壊れていないこと

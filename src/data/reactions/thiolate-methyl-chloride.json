@@ -1,0 +1,41 @@
+{
+  "id": "thiolate-methyl-chloride",
+  "name": "Hydrosulfide + methyl chloride",
+  "equationHtml": "HS<sup>−</sup> + CH<sub>3</sub>Cl → CH<sub>3</sub>SH + Cl<sup>−</sup>",
+  "equationText": "HS- + CH3Cl -> CH3SH + Cl-",
+  "lead": "Donor heavy atom を sulfur にした SN2 プリセットです。forming bond が長く、donor cloud も O 系より拡がって見えます。",
+  "reactantsLabel": "hydrosulfide and methyl chloride",
+  "productsLabel": "methanethiol and chloride",
+  "donor": {
+    "element": "S",
+    "symbol": "S",
+    "name": "hydrosulfide",
+    "template": "hydroxide-like",
+    "attachedElement": "H",
+    "attachedBondLength": 1.34,
+    "attachedAngleDeg": 97.0,
+    "attachedBondOrder": 1,
+    "attachedRole": "spectator",
+    "attachedBondLabel": "S–H"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl chloride",
+    "leavingElement": "Cl",
+    "leavingSymbol": "Cl",
+    "leavingName": "chloride"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.35,
+      "transition": 2.15,
+      "product": 1.82
+    },
+    "carbonLeaving": {
+      "reactant": 1.78,
+      "transition": 2.15,
+      "product": 3.92
+    }
+  },
+  "totalCharge": -1
+}

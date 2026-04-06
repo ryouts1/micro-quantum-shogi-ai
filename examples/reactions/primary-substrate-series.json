@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "name": "Primary-substrate series",
+  "reactions": [
+    {
+      "id": "example-primary-oh-etcl",
+      "family": "primary-sn2",
+      "familyLabel": "primary alkyl SN2",
+      "title": "OH⁻ + CH₃CH₂Cl → CH₃CH₂OH + Cl⁻",
+      "shortTitle": "Example · hydroxide + ethyl chloride",
+      "description": "一次基質を使う最小の primary-sn2 example です。",
+      "substrateLabel": "ethyl chloride",
+      "productLabel": "ethanol + chloride",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "ethyl",
+        "label": "CH₃CH₂"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃CH₂OH",
+        "distances": {
+          "reactant": 3.28,
+          "transition": 2.1,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Cl",
+        "display": "Cl⁻",
+        "atomLabel": "Cl",
+        "element": "Cl",
+        "distances": {
+          "reactant": 1.8,
+          "transition": 2.1,
+          "product": 4.02
+        }
+      }
+    },
+    {
+      "id": "example-primary-oh-etbr",
+      "family": "primary-sn2",
+      "familyLabel": "primary alkyl SN2",
+      "title": "OH⁻ + CH₃CH₂Br → CH₃CH₂OH + Br⁻",
+      "shortTitle": "Example · hydroxide + ethyl bromide",
+      "description": "leaving group を Br に替えた primary-sn2 example です。",
+      "substrateLabel": "ethyl bromide",
+      "productLabel": "ethanol + bromide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "ethyl",
+        "label": "CH₃CH₂"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃CH₂OH",
+        "distances": {
+          "reactant": 3.3,
+          "transition": 2.18,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Br",
+        "display": "Br⁻",
+        "atomLabel": "Br",
+        "element": "Br",
+        "distances": {
+          "reactant": 1.96,
+          "transition": 2.18,
+          "product": 4.22
+        }
+      }
+    },
+    {
+      "id": "example-primary-sh-etbr",
+      "family": "primary-sn2",
+      "familyLabel": "primary alkyl SN2",
+      "title": "HS⁻ + CH₃CH₂Br → CH₃CH₂SH + Br⁻",
+      "shortTitle": "Example · hydrosulfide + ethyl bromide",
+      "description": "広い donor と一次基質を同時に見る primary-sn2 example です。",
+      "substrateLabel": "ethyl bromide",
+      "productLabel": "ethanethiol + bromide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "ethyl",
+        "label": "CH₃CH₂"
+      },
+      "nucleophile": {
+        "symbol": "S",
+        "display": "HS⁻",
+        "atomLabel": "S",
+        "element": "S",
+        "productFragment": "CH₃CH₂SH",
+        "distances": {
+          "reactant": 3.42,
+          "transition": 2.25,
+          "product": 1.82
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 1.34,
+          "polarAngleDeg": 96.0,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Br",
+        "display": "Br⁻",
+        "atomLabel": "Br",
+        "element": "Br",
+        "distances": {
+          "reactant": 1.96,
+          "transition": 2.25,
+          "product": 4.18
+        }
+      }
+    }
+  ]
+}

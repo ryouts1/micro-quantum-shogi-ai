@@ -1,0 +1,41 @@
+{
+  "id": "methoxide-methyl-bromide",
+  "name": "Methoxide + methyl bromide",
+  "equationHtml": "CH<sub>3</sub>O<sup>−</sup> + CH<sub>3</sub>Br → CH<sub>3</sub>OCH<sub>3</sub> + Br<sup>−</sup>",
+  "equationText": "CH3O- + CH3Br -> CH3OCH3 + Br-",
+  "lead": "Methoxide donor を bromide leaving group に切り替えた JSON 追加例です。leaving side の長い尾を伴う acceptor cloud を見やすく比較できます。",
+  "reactantsLabel": "methoxide and methyl bromide",
+  "productsLabel": "dimethyl ether and bromide",
+  "donor": {
+    "element": "O",
+    "symbol": "O",
+    "name": "methoxide",
+    "template": "methoxy-like",
+    "attachedElement": "C",
+    "attachedBondLength": 1.43,
+    "attachedAngleDeg": 109.5,
+    "attachedBondOrder": 1,
+    "attachedRole": "spectator",
+    "attachedBondLabel": "O–C"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl bromide",
+    "leavingElement": "Br",
+    "leavingSymbol": "Br",
+    "leavingName": "bromide"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.28,
+      "transition": 2.17,
+      "product": 1.43
+    },
+    "carbonLeaving": {
+      "reactant": 1.94,
+      "transition": 2.17,
+      "product": 4.12
+    }
+  },
+  "totalCharge": -1
+}

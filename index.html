@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analogous SN2 Reactive Probability Cloud Simulator + JSON examples</title>
+    <meta
+      name="description"
+      content="OH⁻ + CH₃Cl を起点に、analogous methyl SN2 family を切り替えられ、custom reaction JSON と bundled examples を読み込める reactive-only probability cloud シミュレーター"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="panel control-panel">
+        <div class="title-block">
+          <p class="eyebrow">Reactive-only phase-colored probability cloud</p>
+          <h1 id="app-title">OH⁻ + CH₃Cl → CH₃OH + Cl⁻</h1>
+          <p class="lead" id="app-lead">
+            OH⁻ + CH₃Cl の基準ケースから、methyl / primary alkyl SN2 反応へ切り替えられる版です。
+            built-in JSON で持つ反応群に加えて、梱包済みの example JSON やユーザー定義の reaction JSON も読み込めます。表示は reactive donor / acceptor / channel flow に限定し、spectator density は cloud から外しています。
+          </p>
+          <div class="quality-note" id="reaction-meta"></div>
+        </div>
+
+        <div class="control-group">
+          <label for="reaction-select">Reaction preset</label>
+          <select id="reaction-select"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="reaction-json-file">Reaction JSON import</label>
+          <input id="reaction-json-file" type="file" accept=".json,application/json" />
+          <div class="button-row">
+            <button id="load-reaction-json">Load JSON</button>
+            <button id="reset-reaction-library">Built-ins only</button>
+          </div>
+          <div class="quality-note" id="reaction-json-status">Built-in reaction JSON library loaded. Bundled examples are under examples/reactions/.</div>
+        </div>
+
+        <section class="stage-banner">
+          <div class="stage-chip" id="stage-chip">Reactant basin</div>
+          <h2 id="stage-title">Separated hydroxide and methyl chloride</h2>
+          <p id="stage-detail">
+            Hydroxide is still outside the carbon center while the C–Cl bond remains fully developed.
+          </p>
+        </section>
+
+        <div class="control-group">
+          <label for="progress-range">Reaction coordinate</label>
+          <input id="progress-range" type="range" min="0" max="100" value="0" step="1" />
+          <div class="inline-row small-metrics">
+            <span id="progress-label">0.00</span>
+            <div class="button-row compact">
+              <button id="preset-reactants">Reactants</button>
+              <button id="preset-ts">TS</button>
+              <button id="preset-products">Products</button>
+            </div>
+          </div>
+          <div class="button-row">
+            <button id="play-toggle" class="primary">Play</button>
+            <button id="reset-view">Camera reset</button>
+            <button id="export-frame">PNG export</button>
+          </div>
+        </div>
+
+        <div class="control-group two-column-controls">
+          <div>
+            <label for="playback-speed">Playback speed</label>
+            <select id="playback-speed">
+              <option value="0.06">Slow</option>
+              <option value="0.095" selected>Normal</option>
+              <option value="0.15">Fast</option>
+            </select>
+          </div>
+          <div>
+            <label for="shimmer-rate">Cloud refresh</label>
+            <select id="shimmer-rate">
+              <option value="0">Static</option>
+              <option value="6">6 Hz</option>
+              <option value="10" selected>10 Hz</option>
+              <option value="14">14 Hz</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="checkbox-row">
+            <input id="loop-playback" type="checkbox" />
+            <span>Loop playback</span>
+          </label>
+          <label class="checkbox-row">
+            <input id="auto-rotate" type="checkbox" checked />
+            <span>Auto rotate camera</span>
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label for="view-mode">Cloud mode</label>
+          <select id="view-mode">
+            <option value="reactive-donor" selected>Reactive donor cloud |ψ|² + phase</option>
+            <option value="reactive-acceptor">Reactive acceptor cloud |ψ|² + phase</option>
+            <option value="reactive-flow">Reactive Δρ channel flow</option>
+            <option value="reactive-channel">Reactive σ-channel density</option>
+          </select>
+        </div>
+
+        <div class="control-group two-column-controls">
+          <div>
+            <label for="grid-resolution">Grid resolution</label>
+            <select id="grid-resolution">
+              <option value="24">24³</option>
+              <option value="32" selected>32³</option>
+              <option value="40">40³</option>
+              <option value="48">48³</option>
+            </select>
+          </div>
+          <div>
+            <label for="point-count">Particle count</label>
+            <select id="point-count">
+              <option value="2400">2,400</option>
+              <option value="3600" selected>3,600</option>
+              <option value="5200">5,200</option>
+              <option value="7200">7,200</option>
+              <option value="12000">12,000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group two-column-controls">
+          <div>
+            <label for="point-size">Point size</label>
+            <input id="point-size" type="range" min="0.8" max="6.0" value="4.4" step="0.1" />
+            <div class="small-metrics"><span id="point-size-label">4.4</span></div>
+          </div>
+          <div>
+            <label>Rendering note</label>
+            <div class="quality-note" id="quality-hint">
+              Color scale and solve time will appear here after the first field evaluation.
+            </div>
+          </div>
+        </div>
+
+        <div class="status-box">
+          <div id="status-box">Probability cloud ready.</div>
+          <div class="status-subline" id="status-subline"></div>
+        </div>
+        <section class="metrics-grid" id="metric-cards"></section>
+
+        <section class="note-box">
+          <h2>Reactive-only の定義</h2>
+          <p>
+            reactive-only 表示は、nucleophile / carbon / leaving-group の反応軸 x 方向 σ チャネルに重みを置いた AO projector と、
+            その projector 上で最も反応性の高い occupied donor / virtual acceptor 軌道の抽出で定義しています。
+            つまり「反応に無関係な spectator density を UI から外す」ための表示であり、厳密な NBO 分析そのものではありません。
+          </p>
+        </section>
+      </aside>
+
+      <main class="viewer-panel">
+        <div id="viewer"></div>
+        <div class="viewer-overlay">
+          <div class="phase-legend-box">
+            <div class="phase-legend-title">Cloud color legend</div>
+            <div id="legend-bar" class="phase-legend-bar"></div>
+            <div class="phase-legend-labels">
+              <span id="legend-left"></span>
+              <span id="legend-center"></span>
+              <span id="legend-right"></span>
+            </div>
+          </div>
+          <div class="viewer-legend" id="viewer-legend"></div>
+        </div>
+      </main>
+
+      <aside class="panel detail-panel">
+        <section class="detail-section">
+          <h2>Orbital ladder</h2>
+          <canvas id="energy-diagram" width="320" height="240"></canvas>
+        </section>
+
+        <section class="detail-section">
+          <h2>Reactive orbital summary</h2>
+          <div id="frontier-summary" class="key-value-list"></div>
+        </section>
+
+        <section class="detail-section">
+          <h2>Bond populations</h2>
+          <div id="bond-summary" class="key-value-list"></div>
+        </section>
+
+        <section class="detail-section">
+          <h2>Mulliken charges</h2>
+          <table class="data-table" id="charge-table">
+            <thead>
+              <tr>
+                <th>Atom</th>
+                <th>Charge</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+      </aside>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

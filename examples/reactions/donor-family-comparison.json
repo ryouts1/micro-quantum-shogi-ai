@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "name": "Donor-family comparison",
+  "reactions": [
+    {
+      "id": "example-donor-oh-cl",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "OH⁻ + CH₃Cl → CH₃OH + Cl⁻",
+      "shortTitle": "Example · hydroxide donor",
+      "description": "O donor の基準例です。",
+      "substrateLabel": "methyl chloride",
+      "productLabel": "methanol + chloride",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃OH",
+        "distances": {
+          "reactant": 3.2,
+          "transition": 2.08,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Cl",
+        "display": "Cl⁻",
+        "atomLabel": "Cl",
+        "element": "Cl",
+        "distances": {
+          "reactant": 1.78,
+          "transition": 2.08,
+          "product": 3.85
+        }
+      }
+    },
+    {
+      "id": "example-donor-sh-cl",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "HS⁻ + CH₃Cl → CH₃SH + Cl⁻",
+      "shortTitle": "Example · hydrosulfide donor",
+      "description": "S donor の広い donor cloud を比較する example JSON です。",
+      "substrateLabel": "methyl chloride",
+      "productLabel": "methanethiol + chloride",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "S",
+        "display": "HS⁻",
+        "atomLabel": "S",
+        "element": "S",
+        "productFragment": "CH₃SH",
+        "distances": {
+          "reactant": 3.45,
+          "transition": 2.24,
+          "product": 1.82
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 1.34,
+          "polarAngleDeg": 96.0,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Cl",
+        "display": "Cl⁻",
+        "atomLabel": "Cl",
+        "element": "Cl",
+        "distances": {
+          "reactant": 1.78,
+          "transition": 2.24,
+          "product": 3.9
+        }
+      }
+    },
+    {
+      "id": "example-donor-nh2-cl",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "NH₂⁻ + CH₃Cl → CH₃NH₂ + Cl⁻",
+      "shortTitle": "Example · amide donor",
+      "description": "二つの spectator H を持つ N donor の example JSON です。",
+      "substrateLabel": "methyl chloride",
+      "productLabel": "methylamine + chloride",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "N",
+        "display": "NH₂⁻",
+        "atomLabel": "N",
+        "element": "N",
+        "productFragment": "CH₃NH₂",
+        "distances": {
+          "reactant": 3.15,
+          "transition": 2.1,
+          "product": 1.47
+        },
+        "hydrogens": {
+          "count": 2,
+          "bondLength": 1.01,
+          "polarAngleDeg": 107.0,
+          "azimuthDegs": [
+            60,
+            -60
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Cl",
+        "display": "Cl⁻",
+        "atomLabel": "Cl",
+        "element": "Cl",
+        "distances": {
+          "reactant": 1.78,
+          "transition": 2.1,
+          "product": 3.8
+        }
+      }
+    },
+    {
+      "id": "example-donor-f-i",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "F⁻ + CH₃I → CH₃F + I⁻",
+      "shortTitle": "Example · fluoride donor",
+      "description": "H spectator を持たない単原子 donor の example JSON です。",
+      "substrateLabel": "methyl iodide",
+      "productLabel": "fluoromethane + iodide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "F",
+        "display": "F⁻",
+        "atomLabel": "F",
+        "element": "F",
+        "productFragment": "CH₃F",
+        "distances": {
+          "reactant": 3.1,
+          "transition": 2.05,
+          "product": 1.38
+        },
+        "hydrogens": null
+      },
+      "leavingGroup": {
+        "symbol": "I",
+        "display": "I⁻",
+        "atomLabel": "I",
+        "element": "I",
+        "distances": {
+          "reactant": 2.14,
+          "transition": 2.05,
+          "product": 4.35
+        }
+      }
+    }
+  ]
+}

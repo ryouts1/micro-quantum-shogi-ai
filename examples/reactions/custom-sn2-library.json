@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "name": "Mixed showcase custom SN2 library",
+  "reactions": [
+    {
+      "id": "example-mixed-fi",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "F⁻ + CH₃I → CH₃F + I⁻",
+      "shortTitle": "Example · fluoride + methyl iodide",
+      "description": "単原子 donor と重い leaving group を読み込む最小寄りの mixed showcase 例です。",
+      "substrateLabel": "methyl iodide",
+      "productLabel": "fluoromethane + iodide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "F",
+        "display": "F⁻",
+        "atomLabel": "F",
+        "element": "F",
+        "productFragment": "CH₃F",
+        "distances": {
+          "reactant": 3.1,
+          "transition": 2.05,
+          "product": 1.38
+        },
+        "hydrogens": null
+      },
+      "leavingGroup": {
+        "symbol": "I",
+        "display": "I⁻",
+        "atomLabel": "I",
+        "element": "I",
+        "distances": {
+          "reactant": 2.14,
+          "transition": 2.05,
+          "product": 4.35
+        }
+      }
+    },
+    {
+      "id": "example-mixed-nh2br",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "NH₂⁻ + CH₃Br → CH₃NH₂ + Br⁻",
+      "shortTitle": "Example · amide + methyl bromide",
+      "description": "二つの N–H spectator を持つ donor を mixed library で読み込む例です。",
+      "substrateLabel": "methyl bromide",
+      "productLabel": "methylamine + bromide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "N",
+        "display": "NH₂⁻",
+        "atomLabel": "N",
+        "element": "N",
+        "productFragment": "CH₃NH₂",
+        "distances": {
+          "reactant": 3.2,
+          "transition": 2.14,
+          "product": 1.47
+        },
+        "hydrogens": {
+          "count": 2,
+          "bondLength": 1.01,
+          "polarAngleDeg": 107.0,
+          "azimuthDegs": [
+            60,
+            -60
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Br",
+        "display": "Br⁻",
+        "atomLabel": "Br",
+        "element": "Br",
+        "distances": {
+          "reactant": 1.94,
+          "transition": 2.14,
+          "product": 4.1
+        }
+      }
+    },
+    {
+      "id": "example-mixed-oh-etcl",
+      "family": "primary-sn2",
+      "familyLabel": "primary alkyl SN2",
+      "title": "OH⁻ + CH₃CH₂Cl → CH₃CH₂OH + Cl⁻",
+      "shortTitle": "Example · hydroxide + ethyl chloride",
+      "description": "primary substrate を含む mixed showcase 例です。β-carbon を残した一次基質の読み込み確認に使えます。",
+      "substrateLabel": "ethyl chloride",
+      "productLabel": "ethanol + chloride",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "ethyl",
+        "label": "CH₃CH₂"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃CH₂OH",
+        "distances": {
+          "reactant": 3.28,
+          "transition": 2.1,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Cl",
+        "display": "Cl⁻",
+        "atomLabel": "Cl",
+        "element": "Cl",
+        "distances": {
+          "reactant": 1.8,
+          "transition": 2.1,
+          "product": 4.02
+        }
+      }
+    }
+  ]
+}

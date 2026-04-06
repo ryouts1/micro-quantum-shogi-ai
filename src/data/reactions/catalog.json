@@ -1,0 +1,354 @@
+[
+  {
+    "id": "oh-cl",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "OH⁻ + CH₃Cl → CH₃OH + Cl⁻",
+    "shortTitle": "Hydroxide + methyl chloride",
+    "description": "標準の基準ケースです。OH⁻ が backside から CH₃Cl を攻撃する SN2 反応を reactive-only cloud で表示します。",
+    "substrateLabel": "methyl chloride",
+    "productLabel": "methanol + chloride",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "O",
+      "display": "OH⁻",
+      "atomLabel": "O",
+      "element": "O",
+      "productFragment": "CH₃OH",
+      "distances": { "reactant": 3.2, "transition": 2.08, "product": 1.43 },
+      "hydrogens": {
+        "count": 1,
+        "bondLength": 0.96,
+        "polarAngleDeg": 108.5,
+        "azimuthDegs": [90]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Cl",
+      "display": "Cl⁻",
+      "atomLabel": "Cl",
+      "element": "Cl",
+      "distances": { "reactant": 1.78, "transition": 2.08, "product": 3.85 }
+    }
+  },
+  {
+    "id": "oh-br",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "OH⁻ + CH₃Br → CH₃OH + Br⁻",
+    "shortTitle": "Hydroxide + methyl bromide",
+    "description": "Leaving group を Br に差し替えた SN2 プリセットです。C–Br が C–Cl より長く、離脱側の電子雲も広がります。",
+    "substrateLabel": "methyl bromide",
+    "productLabel": "methanol + bromide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "O",
+      "display": "OH⁻",
+      "atomLabel": "O",
+      "element": "O",
+      "productFragment": "CH₃OH",
+      "distances": { "reactant": 3.25, "transition": 2.18, "product": 1.43 },
+      "hydrogens": {
+        "count": 1,
+        "bondLength": 0.96,
+        "polarAngleDeg": 108.5,
+        "azimuthDegs": [90]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Br",
+      "display": "Br⁻",
+      "atomLabel": "Br",
+      "element": "Br",
+      "distances": { "reactant": 1.94, "transition": 2.18, "product": 4.1 }
+    }
+  },
+  {
+    "id": "oh-i",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "OH⁻ + CH₃I → CH₃OH + I⁻",
+    "shortTitle": "Hydroxide + methyl iodide",
+    "description": "Leaving group を I にした重いハロゲン化メチルのケースです。反応軸が長く、iodide 側の cloud も広がります。",
+    "substrateLabel": "methyl iodide",
+    "productLabel": "methanol + iodide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "O",
+      "display": "OH⁻",
+      "atomLabel": "O",
+      "element": "O",
+      "productFragment": "CH₃OH",
+      "distances": { "reactant": 3.3, "transition": 2.28, "product": 1.43 },
+      "hydrogens": {
+        "count": 1,
+        "bondLength": 0.96,
+        "polarAngleDeg": 108.5,
+        "azimuthDegs": [90]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "I",
+      "display": "I⁻",
+      "atomLabel": "I",
+      "element": "I",
+      "distances": { "reactant": 2.14, "transition": 2.28, "product": 4.45 }
+    }
+  },
+  {
+    "id": "sh-cl",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "HS⁻ + CH₃Cl → CH₃SH + Cl⁻",
+    "shortTitle": "Hydrosulfide + methyl chloride",
+    "description": "求核剤を HS⁻ に変えたプリセットです。O より広い S の donor cloud が見えます。",
+    "substrateLabel": "methyl chloride",
+    "productLabel": "methanethiol + chloride",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "S",
+      "display": "HS⁻",
+      "atomLabel": "S",
+      "element": "S",
+      "productFragment": "CH₃SH",
+      "distances": { "reactant": 3.45, "transition": 2.24, "product": 1.82 },
+      "hydrogens": {
+        "count": 1,
+        "bondLength": 1.34,
+        "polarAngleDeg": 96,
+        "azimuthDegs": [90]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Cl",
+      "display": "Cl⁻",
+      "atomLabel": "Cl",
+      "element": "Cl",
+      "distances": { "reactant": 1.78, "transition": 2.24, "product": 3.9 }
+    }
+  },
+  {
+    "id": "nh2-cl",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "NH₂⁻ + CH₃Cl → CH₃NH₂ + Cl⁻",
+    "shortTitle": "Amide + methyl chloride",
+    "description": "求核剤を NH₂⁻ にしたケースです。二つの N–H spectator を残しつつ、反応に関与する lone pair だけを表示します。",
+    "substrateLabel": "methyl chloride",
+    "productLabel": "methylamine + chloride",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "N",
+      "display": "NH₂⁻",
+      "atomLabel": "N",
+      "element": "N",
+      "productFragment": "CH₃NH₂",
+      "distances": { "reactant": 3.15, "transition": 2.1, "product": 1.47 },
+      "hydrogens": {
+        "count": 2,
+        "bondLength": 1.01,
+        "polarAngleDeg": 107,
+        "azimuthDegs": [60, -60]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Cl",
+      "display": "Cl⁻",
+      "atomLabel": "Cl",
+      "element": "Cl",
+      "distances": { "reactant": 1.78, "transition": 2.1, "product": 3.8 }
+    }
+  },
+  {
+    "id": "nh2-br",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "NH₂⁻ + CH₃Br → CH₃NH₂ + Br⁻",
+    "shortTitle": "Amide + methyl bromide",
+    "description": "N 求核剤と Br leaving group を組み合わせた methyl SN2 の比較用ケースです。",
+    "substrateLabel": "methyl bromide",
+    "productLabel": "methylamine + bromide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "N",
+      "display": "NH₂⁻",
+      "atomLabel": "N",
+      "element": "N",
+      "productFragment": "CH₃NH₂",
+      "distances": { "reactant": 3.2, "transition": 2.18, "product": 1.47 },
+      "hydrogens": {
+        "count": 2,
+        "bondLength": 1.01,
+        "polarAngleDeg": 107,
+        "azimuthDegs": [60, -60]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Br",
+      "display": "Br⁻",
+      "atomLabel": "Br",
+      "element": "Br",
+      "distances": { "reactant": 1.94, "transition": 2.18, "product": 4.05 }
+    }
+  },
+  {
+    "id": "cl-br",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "Cl⁻ + CH₃Br → CH₃Cl + Br⁻",
+    "shortTitle": "Chloride + methyl bromide",
+    "description": "ハライド交換の SN2 プリセットです。求核剤と leaving group の両方がハロゲンなので、donor / acceptor の形を比較しやすくしています。",
+    "substrateLabel": "methyl bromide",
+    "productLabel": "methyl chloride + bromide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "Cl",
+      "display": "Cl⁻",
+      "atomLabel": "Cl",
+      "element": "Cl",
+      "productFragment": "CH₃Cl",
+      "distances": { "reactant": 3.3, "transition": 2.18, "product": 1.78 }
+    },
+    "leavingGroup": {
+      "symbol": "Br",
+      "display": "Br⁻",
+      "atomLabel": "Br",
+      "element": "Br",
+      "distances": { "reactant": 1.94, "transition": 2.18, "product": 4.15 }
+    }
+  },
+  {
+    "id": "f-i",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "F⁻ + CH₃I → CH₃F + I⁻",
+    "shortTitle": "Fluoride + methyl iodide",
+    "description": "軽い求核剤 F⁻ と重い leaving group I⁻ を比べるためのケースです。",
+    "substrateLabel": "methyl iodide",
+    "productLabel": "methyl fluoride + iodide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "F",
+      "display": "F⁻",
+      "atomLabel": "F",
+      "element": "F",
+      "productFragment": "CH₃F",
+      "distances": { "reactant": 3.08, "transition": 2.12, "product": 1.39 }
+    },
+    "leavingGroup": {
+      "symbol": "I",
+      "display": "I⁻",
+      "atomLabel": "I",
+      "element": "I",
+      "distances": { "reactant": 2.14, "transition": 2.12, "product": 4.35 }
+    }
+  },
+  {
+    "id": "oh-ethyl-cl",
+    "family": "primary-sn2",
+    "familyLabel": "primary alkyl SN2",
+    "title": "OH⁻ + CH₃CH₂Cl → CH₃CH₂OH + Cl⁻",
+    "shortTitle": "Hydroxide + ethyl chloride",
+    "description": "基質を ethyl chloride に広げた primary SN2 ケースです。反応中心以外の β-CH₃ は spectator として残ります。",
+    "substrateLabel": "ethyl chloride",
+    "productLabel": "ethanol + chloride",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "ethyl",
+      "label": "CH₃CH₂",
+      "betaCarbonBondLength": 1.53,
+      "betaHydrogenBondLength": 1.09
+    },
+    "nucleophile": {
+      "symbol": "O",
+      "display": "OH⁻",
+      "atomLabel": "O",
+      "element": "O",
+      "productFragment": "CH₃CH₂OH",
+      "distances": { "reactant": 3.3, "transition": 2.12, "product": 1.43 },
+      "hydrogens": {
+        "count": 1,
+        "bondLength": 0.96,
+        "polarAngleDeg": 108.5,
+        "azimuthDegs": [90]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Cl",
+      "display": "Cl⁻",
+      "atomLabel": "Cl",
+      "element": "Cl",
+      "distances": { "reactant": 1.8, "transition": 2.12, "product": 3.85 }
+    }
+  },
+  {
+    "id": "sh-ethyl-br",
+    "family": "primary-sn2",
+    "familyLabel": "primary alkyl SN2",
+    "title": "HS⁻ + CH₃CH₂Br → CH₃CH₂SH + Br⁻",
+    "shortTitle": "Hydrosulfide + ethyl bromide",
+    "description": "S 求核剤と ethyl bromide を組み合わせた primary SN2 ケースです。より広い donor cloud と β-alkyl spectator を同時に見られます。",
+    "substrateLabel": "ethyl bromide",
+    "productLabel": "ethanethiol + bromide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "ethyl",
+      "label": "CH₃CH₂",
+      "betaCarbonBondLength": 1.53,
+      "betaHydrogenBondLength": 1.09
+    },
+    "nucleophile": {
+      "symbol": "S",
+      "display": "HS⁻",
+      "atomLabel": "S",
+      "element": "S",
+      "productFragment": "CH₃CH₂SH",
+      "distances": { "reactant": 3.55, "transition": 2.28, "product": 1.82 },
+      "hydrogens": {
+        "count": 1,
+        "bondLength": 1.34,
+        "polarAngleDeg": 96,
+        "azimuthDegs": [90]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Br",
+      "display": "Br⁻",
+      "atomLabel": "Br",
+      "element": "Br",
+      "distances": { "reactant": 1.96, "transition": 2.28, "product": 4.15 }
+    }
+  }
+]

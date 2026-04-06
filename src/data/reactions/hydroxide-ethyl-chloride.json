@@ -1,0 +1,41 @@
+{
+  "id": "hydroxide-ethyl-chloride",
+  "name": "Hydroxide + ethyl chloride",
+  "equationHtml": "OH<sup>−</sup> + CH<sub>3</sub>CH<sub>2</sub>Cl → CH<sub>3</sub>CH<sub>2</sub>OH + Cl<sup>−</sup>",
+  "equationText": "OH- + CH3CH2Cl -> CH3CH2OH + Cl-",
+  "lead": "一次アルキル基質を含むプリセットです。attack center は α-carbon、β-carbon は acceptor-support / context として保持します。",
+  "reactantsLabel": "hydroxide and ethyl chloride",
+  "productsLabel": "ethanol and chloride",
+  "donor": {
+    "element": "O",
+    "symbol": "O",
+    "name": "hydroxide",
+    "template": "hydroxide-like",
+    "attachedElement": "H",
+    "attachedBondLength": 0.96,
+    "attachedAngleDeg": 108.5,
+    "attachedBondOrder": 1,
+    "attachedRole": "spectator",
+    "attachedBondLabel": "O–H"
+  },
+  "substrate": {
+    "template": "ethyl-halide",
+    "name": "ethyl chloride",
+    "leavingElement": "Cl",
+    "leavingSymbol": "Cl",
+    "leavingName": "chloride"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.28,
+      "transition": 2.1,
+      "product": 1.43
+    },
+    "carbonLeaving": {
+      "reactant": 1.8,
+      "transition": 2.1,
+      "product": 4.02
+    }
+  },
+  "totalCharge": -1
+}

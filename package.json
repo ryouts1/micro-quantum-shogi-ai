@@ -1,19 +1,9 @@
 {
-  "name": "micro-quantum-shogi",
-  "version": "1.0.0",
+  "name": "sn2-reaction-family-reactive-cloud-simulator",
+  "version": "2.4.1",
   "private": true,
   "type": "module",
-  "description": "5x5 simplified quantum shogi with observation collapse, MCTS / expectiminimax AI, replay, and win-rate heatmap.",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "test": "node --test",
-    "sample-replay": "node scripts/generateSampleReplay.js",
-    "replay-report": "node scripts/generateReplayReport.js",
-    "train-model": "node scripts/trainModel.js",
-    "benchmark-model": "node scripts/benchmarkModel.js"
-  },
-  "engines": {
-    "node": ">=20"
+    "test": "node --test"
   }
 }

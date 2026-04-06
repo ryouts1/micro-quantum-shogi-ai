@@ -1,213 +1,155 @@
-# micro-quantum-shogi [L]
+# SN2 Reaction Family Reactive Cloud Simulator (reaction JSON examples)
 
-5x5 の簡易量子将棋です。駒の不確定性は「確率付きの複数世界」として保持し、観測で 1 つの世界に collapse します。対局 UI、Expectiminimax / MCTS / learned-hybrid AI、決定的リプレイ、勝率ヒートマップ、評価推移、量子状態ビュー、自己対局で作った学習済みモデルまでを 1 つのリポジトリにまとめました。
+`OH⁻ + CH₃Cl → CH₃OH + Cl⁻` を基準ケースに、**methyl SN2 / primary alkyl SN2** を切り替えて見られる 3D reactive-only probability cloud シミュレーターです。
 
-今回の版では、探索アルゴリズムを置くだけでなく、自己対局から作った軽量モデルを同梱しています。ニューラルネットではありませんが、学習済みの piece-square table、線形評価重み、序盤ブックを評価関数と手の優先度に反映しています。
+この版では次の 2 点を入れています。
 
-同梱している学習済みモデルは、自己対局 1200 局、収集局面 13107、opening book 225 状態、低予算ベンチマーク 4 局で 62.5% を記録した版です。数値は `sample-data/reports/training-report.json` と `sample-data/reports/benchmark-report.json` に残しています。
+1. **particle count は軽いまま、point size は元に戻した**
+   - 初期 particle count は `18,000 → 3,600` のまま維持
+   - 初期 point size は `0.9 → 4.4` に戻して、雲の体積感を維持
+   - 反応中心の見やすさと、cloud の存在感のバランスを取り直しました
+2. **reaction JSON の bundled examples を増やした**
+   - `examples/reactions/` に複数の JSON 例を同梱
+   - object-form / array-form の両方を含む
+   - leaving group 比較、donor 比較、primary substrate 系をすぐ読み込めます
 
-## この作品で見せたいこと
 
-- ルール設計: 量子っぽい不確定性を、説明できるルールに落とす
-- 状態管理: UI / AI / リプレイが同じ belief state を共有する
-- 探索実装: Expectiminimax と MCTS を同一エンジン上で比較する
-- 学習導入: 自己対局から軽量モデルを作って探索に混ぜる
-- 可視化: 分岐した世界、候補手、評価推移を UI に載せる
-- 品質担保: seed、テスト、補助ドキュメント、サンプルデータまで揃える
+## 表示例 PNG
 
-## 何ができるか
+README だけで見た目が伝わるように、代表的な表示例を PNG で同梱しています。下の画像は **現行 UI / 現行 cloud 設定**（`32³ grid`, `3,600 particles`, `point size 4.4`）で書き出した例です。
 
-- 5x5 量子将棋のブラウザ対局
-- Human / Expectiminimax / MCTS / learned-hybrid の切り替え
-- 量子移動と観測 collapse
-- 勝率ヒートマップと量子候補ランキング
-- 上位世界をミニ盤面で並べる量子状態ビュー
-- 候補手ランキングを出す AI 解析パネル
-- リプレイスライダ、自動再生、評価推移チャート
-- JSON リプレイの書き出し / 読み込み
-- 学習済みモデルのメタ情報表示
-- サンプルリプレイ、学習レポート、簡易ベンチマークの同梱
+![README display previews](./docs/images/readme-preview-grid.png)
 
-## ルールの要点
+個別 PNG は `docs/images/` に入っています。
 
-### 盤面と駒
+- `preview-01-oh-cl-donor-reactant.png`  
+  OH⁻ + CH₃Cl の reactant basin における reactive donor cloud
+- `preview-02-oh-cl-acceptor-ts.png`  
+  OH⁻ + CH₃Cl の transition region における reactive acceptor cloud
+- `preview-03-oh-br-flow-ts.png`  
+  OH⁻ + CH₃Br の transition region における reactive Δρ channel flow
+- `preview-04-sh-ethyl-br-donor-primary.png`  
+  HS⁻ + CH₃CH₂Br の primary SN2 ケースにおける reactive donor cloud
 
-- 盤面は 5x5
-- 駒は 王 / 金 / 銀 / 角 / 飛 / 歩
-- 成り・持ち駒・打ちはなし
-- 勝敗は相手の王の捕獲で決まる
+## 何を見せるツールか
 
-### 量子移動
+表示は「反応に直接関与する電子雲だけ」に限定しています。
 
-- 各プレイヤーは量子チャージを 3 回持つ
-- 量子移動は非捕獲移動のみ
-- 1 枚の確定駒を 2 つの合法マスへ同時に分岐させる
-- 分岐後は 50% / 50% の 2 世界として保持する
+- **Reactive donor cloud**  
+  求核剤側 donor 成分だけを `|ψ|²` の確率雲で表示
+- **Reactive acceptor cloud**  
+  backside attack を受ける `σ*` 側 acceptor 成分だけを `|ψ|²` の確率雲で表示
+- **Reactive Δρ flow**  
+  反応物基準で、反応チャネル内の電子がどこから減ってどこへ増えるかを表示
+- **Reactive σ-channel density**  
+  nucleophile / carbon / leaving-group の反応軸方向チャネルに投影した密度だけを表示
 
-### 観測
+spectator な C–H / X–H 電子雲は UI 上の主表示から外しています。
 
-- 不確定な駒に対して観測を行うと、状態全体が 1 つの世界に collapse する
-- 観測も 1 手として扱う
-- 不確定な駒はそのままでは捕まえられない。観測で世界を確定させてから捕獲する
+## reaction JSON でできること
 
-### 実装上の整理
+この版の JSON import は、**SN2 family のうち、いまの幾何生成器で無理なく扱える範囲** に絞っています。
 
-量子捕獲まで全面的に許すと、王の生死や捕獲結果自体が分岐し、合法手判定と探索が急に複雑になります。この作品では次の制約を置いています。
+現在サポートしている前提:
 
-- 量子移動は非捕獲のみ
-- 捕獲は古典移動のみ
-- 合法手判定は「全世界で同じ意味を持つ手」だけを採用
+- `family`: `methyl-sn2` または `primary-sn2`
+- `substrate.type`: `methyl` または `ethyl`
+- nucleophile は単一重原子 `Nu` + 任意の `Nu–H` spectator 0〜3 本
+- leaving group は単一重原子 `X`
+- 対応元素は `H / C / N / O / F / S / Cl / Br / I`
 
-この制約のおかげで、量子状態があってもルールの意味がぶれず、AI とリプレイが一貫したデータ構造で扱えます。
+つまり、「任意分子の自由入力」ではなく、**同型の SN2 family を JSON で追加できる** 段階まで実装しています。
 
-## 学習済み AI の作り方
+JSON schema の詳細は [`docs/reaction-json.md`](./docs/reaction-json.md) にまとめています。すぐ試せるサンプルは [`examples/reactions/`](./examples/reactions/) に入っています。
 
-今回の学習部分は、深層学習ではなく、ポートフォリオで説明しやすい軽量な自己対局ベースです。
+## bundled reaction JSON examples
 
-- `scripts/trainModel.js`
-  - 浅い自己対局を複数回まわす
-  - 局面特徴を集めて線形重みを学習する
-  - piece-square table を作る
-  - 序盤の exact-state opening book を作る
-- `scripts/benchmarkModel.js`
-  - learned-hybrid を expectiminimax / mcts と軽く比較する
-  - レポートを `sample-data/reports/benchmark-report.json` に保存する
+- `examples/reactions/minimal-single-reaction.json`
+- `examples/reactions/custom-sn2-library.json`
+- `examples/reactions/halide-leaving-group-comparison.json`
+- `examples/reactions/donor-family-comparison.json`
+- `examples/reactions/primary-substrate-series.json`
+- `examples/reactions/array-format-example.json`
 
-学習済みモデルは `src/game/trainedModel.js` に埋め込み済みです。UI の「学習済みモデル」パネルから、自己対局数、局面数、序盤ブック状態数、簡易ベンチマーク結果を確認できます。
+どのファイルも、そのまま `Reaction JSON import` から読み込めます。ファイルごとの意図は [`examples/reactions/README.md`](./examples/reactions/README.md) にまとめています。
 
-今回同梱している版は `selfplay-v2-xl` で、`npm run train-model -- --games 1200` 相当の大きめ設定で再生成しています。
+## built-in reactions
 
-### learned-hybrid の中身
+- `OH⁻ + CH₃Cl → CH₃OH + Cl⁻`
+- `OH⁻ + CH₃Br → CH₃OH + Br⁻`
+- `OH⁻ + CH₃I → CH₃OH + I⁻`
+- `HS⁻ + CH₃Cl → CH₃SH + Cl⁻`
+- `NH₂⁻ + CH₃Cl → CH₃NH₂ + Cl⁻`
+- `NH₂⁻ + CH₃Br → CH₃NH₂ + Br⁻`
+- `Cl⁻ + CH₃Br → CH₃Cl + Br⁻`
+- `F⁻ + CH₃I → CH₃F + I⁻`
+- `OH⁻ + CH₃CH₂Cl → CH₃CH₂OH + Cl⁻`
+- `HS⁻ + CH₃CH₂Br → CH₃CH₂SH + Br⁻`
 
-learned-hybrid は別物の巨大 AI ではなく、既存の探索を次のように束ねたものです。
+## reactive-only の定義
 
-1. 序盤で exact-state opening book があればそれを優先する
-2. それ以外は Expectiminimax と MCTS の候補を両方計算する
-3. 学習済み評価と action prior を混ぜて最終ランキングを作る
+このアプリでいう「反応に関係する電子雲」は、厳密な NBO 解析そのものではありません。次の projector ベース定義を使っています。
 
-この構成にした理由は、面接で「学習で全部置き換えた」のではなく、「探索のどこに学習情報を差し込んだか」を説明しやすいからです。
+1. extended Hückel + 最小 Gaussian 基底で MO を求める
+2. nucleophile / carbon / leaving-group の **反応軸 x 方向 σ チャネル** に重みを持つ AO projector を作る
+3. occupied 側では、その projector 成分が最も大きい軌道を **reactive donor** として選ぶ
+4. virtual 側では、その projector 成分が最も大きい軌道を **reactive acceptor** として選ぶ
+5. reactive channel density / flow では、その projector に入る AO 成分だけで密度を再評価する
 
-## 画面で見てほしい場所
+目的は、**反応に直接関与する電子雲だけを UI 上で安定して比較表示すること** です。
 
-1. 盤面で確定駒を選ぶ
-2. 勝率ヒートマップを出す
-3. 量子状態ビューで世界の分岐を見る
-4. AI 解析パネルで候補手ランキングを見る
-5. 学習済みモデルパネルで自己対局データを見る
-6. リプレイで評価推移をスクラブする
+## 計算モデル
 
-これだけで、ルール設計・状態表現・探索・軽量学習・可視化のつながりが伝わる構成にしています。
+1. reaction preset か imported JSON と `progress ∈ [0, 1]` から SN2 反応幾何を生成
+2. H / C / N / O / F / S / Cl / Br / I に最小基底 Gaussian AO を配置
+3. overlap 行列 `S` を解析的に計算
+4. extended Hückel 型 Hamiltonian `H` を構成
+5. 一般化固有値問題を解いて MO を得る
+6. 密度行列 `P` を構成
+7. donor / acceptor / reactive channel の projector を組む
+8. `|ψ_reactive|²`, `ρ_reactive(r)`, `Δρ_reactive(r)` を 3D グリッド上で評価
+9. importance sampling で point cloud を生成
 
-## ディレクトリ構成
+## 何が正しく、何が近似か
+
+### この版で揃えていること
+
+- donor / acceptor cloud は `|ψ|²` に基づく probability cloud
+- density flow は `|Δρ|` で点を打ち、符号は色で分ける
+- spectator H basis は reactive projector から外している
+- 反応ごとに距離・原子種・電子数要約が切り替わる
+- built-in preset と custom JSON の両方を同じ UI で扱える
+- bundled example JSON をそのまま import できる
+
+### 近似であること
+
+- 電子状態モデルは extended Hückel
+- AO projector による reactive 定義は表示用の近似分解
+- 反応経路は手組みの 1D path
+- ab initio / DFT cube を直接描いているわけではない
+- 任意分子の自由入力と自動反応経路最適化まではまだ入っていない
+
+## 実行方法
+
+```bash
+cd sn2-reaction-family-reactive-cloud-simulator-json-examples
+python3 -m http.server 8000
+```
+
+ブラウザで次を開きます。
 
 ```text
-micro-quantum-shogi/
-├── README.md
-├── package.json
-├── server.js
-├── docs/
-│   ├── architecture.md
-│   ├── design-decisions.md
-│   ├── replay-format.md
-│   ├── rules-ja.md
-│   ├── test-plan.md
-│   └── training.md
-├── sample-data/
-│   ├── replays/
-│   │   └── ai-duel.json
-│   └── reports/
-│       ├── benchmark-report.json
-│       ├── sample-replay-report.json
-│       └── training-report.json
-├── scripts/
-│   ├── benchmarkModel.js
-│   ├── generateReplayReport.js
-│   ├── generateSampleReplay.js
-│   └── trainModel.js
-├── src/
-│   ├── index.html
-│   ├── main.js
-│   ├── styles.css
-│   ├── game/
-│   │   ├── ai.js
-│   │   ├── analysis.js
-│   │   ├── constants.js
-│   │   ├── evaluator.js
-│   │   ├── heatmap.js
-│   │   ├── model.js
-│   │   ├── replay.js
-│   │   ├── rules.js
-│   │   ├── selectors.js
-│   │   ├── setup.js
-│   │   ├── trainedModel.js
-│   │   └── utils.js
-│   └── ui/
-│       ├── app.js
-│       ├── board.js
-│       ├── charts.js
-│       └── panels.js
-└── tests/
-    ├── ai.test.js
-    ├── determinism.test.js
-    ├── heatmap.test.js
-    ├── learned.test.js
-    ├── replay.test.js
-    └── rules.test.js
+http://localhost:8000
 ```
 
-## 起動方法
+## reaction JSON の読み込み方
 
-Node.js 20 以上を想定しています。
+1. `examples/reactions/` から読み込みたい `.json` を 1 つ選ぶ
+2. 画面左の **Reaction JSON import** でそのファイルを指定する
+3. **Load JSON** を押す
+4. selector の `Imported JSON` グループから新しい反応を選ぶ
 
-```bash
-cd micro-quantum-shogi
-npm start
-```
-
-起動後にブラウザで `http://localhost:4173` を開いてください。
-
-## 主要スクリプト
-
-```bash
-npm start                # ローカルサーバー起動
-npm test                 # ルール / AI / リプレイ / 学習済みモデルのテスト
-npm run sample-replay    # サンプルリプレイ生成
-npm run replay-report    # サンプルリプレイの集計レポート生成
-npm run train-model      # 自己対局から trainedModel.js を再生成
-npm run benchmark-model  # learned-hybrid の簡易比較を実行
-```
-
-## AI の実装方針
-
-### Expectiminimax
-
-- 観測を chance node として扱う
-- belief state をそのまま確率付き状態として評価する
-- 学習済み線形評価と piece-square table を併用する
-
-### MCTS
-
-- belief state 上で UCT を回す
-- 観測で生じる collapse は seed 付き乱択でサンプリングする
-- rollout は軽いヒューリスティック付きランダム方策を使う
-- 学習済み action prior を unvisited node と rollout の両方に混ぜる
-
-### learned-hybrid
-
-- opening book があればその手を使う
-- なければ Expectiminimax と MCTS のランキングを合成する
-- 学習済み prior を最後の tie-break に使う
-
-## サンプルデータ
-
-- `sample-data/replays/ai-duel.json`
-  - learned-hybrid と mcts のサンプル対局
-- `sample-data/reports/sample-replay-report.json`
-  - 量子手数、観測回数、平均世界数、最終結果を集計
-- `sample-data/reports/training-report.json`
-  - 自己対局数、特徴重み、opening book のプレビュー
-- `sample-data/reports/benchmark-report.json`
-  - learned-hybrid の低予算比較結果
+built-in だけに戻したいときは **Built-ins only** を押します。
 
 ## テスト
 
@@ -215,46 +157,86 @@ npm run benchmark-model  # learned-hybrid の簡易比較を実行
 npm test
 ```
 
-確認している内容は次の通りです。
+この版では、既存の数値テストに加えて次も確認しています。
 
-- 初期局面で合法手が生成されること
-- 量子移動で世界が分岐し、チャージが減ること
-- 観測で世界が 1 つに collapse すること
-- Expectiminimax が即王取りを優先すること
-- MCTS が固定 seed で決定的に振る舞うこと
-- learned-hybrid が初期局面で opening book を使えること
-- 学習済みメタ情報が埋め込まれていること
-- リプレイの JSON 化と復元が壊れていないこと
+- reaction JSON schema の正規化
+- unsupported family の拒否
+- custom reaction JSON の runtime import / reset
+- JSON 由来 reaction object から幾何が組めること
+- 同梱した example JSON ファイルがすべて parse できること
 
-## ドキュメント
+## ディレクトリ構成
 
-- `docs/architecture.md` : モジュール境界とデータフロー
-- `docs/design-decisions.md` : 主要な設計判断
-- `docs/replay-format.md` : リプレイ JSON の構造
-- `docs/rules-ja.md` : ルールの日本語説明
-- `docs/test-plan.md` : 何をどう検証しているか
-- `docs/training.md` : 学習済みモデルの作り方と限界
+```text
+sn2-reaction-family-reactive-cloud-simulator-json-examples/
+├─ index.html
+├─ package.json
+├─ README.md
+├─ .gitignore
+├─ docs/
+│  ├─ architecture.md
+│  ├─ interview-notes.md
+│  ├─ reaction-json.md
+│  ├─ scientific-model.md
+│  ├─ test-plan.md
+│  └─ images/
+│     ├─ readme-preview-grid.png
+│     ├─ preview-01-oh-cl-donor-reactant.png
+│     ├─ preview-02-oh-cl-acceptor-ts.png
+│     ├─ preview-03-oh-br-flow-ts.png
+│     └─ preview-04-sh-ethyl-br-donor-primary.png
+├─ examples/
+│  └─ reactions/
+│     ├─ README.md
+│     ├─ minimal-single-reaction.json
+│     ├─ custom-sn2-library.json
+│     ├─ halide-leaving-group-comparison.json
+│     ├─ donor-family-comparison.json
+│     ├─ primary-substrate-series.json
+│     └─ array-format-example.json
+├─ src/
+│  ├─ chemistry/
+│  │  ├─ elements.js
+│  │  ├─ reactionPath.js
+│  │  ├─ reactionPresets.js
+│  │  └─ reactionSchema.js
+│  ├─ data/
+│  │  └─ reactions/
+│  │     └─ catalog.json
+│  ├─ math/
+│  │  ├─ matrix.js
+│  │  └─ numerics.js
+│  ├─ physics/
+│  │  ├─ gaussianBasis.js
+│  │  ├─ extendedHuckel.js
+│  │  ├─ reactiveSpace.js
+│  │  └─ sampler.js
+│  ├─ render/
+│  │  ├─ colorMap.js
+│  │  ├─ cloudSampler.js
+│  │  ├─ cloudTransition.js
+│  │  ├─ scene3d.js
+│  │  └─ energyDiagram.js
+│  ├─ worker/
+│  │  └─ densityWorker.js
+│  ├─ main.js
+│  └─ styles.css
+└─ tests/
+   ├─ cloudSampler.test.js
+   ├─ cloudTransition.test.js
+   ├─ extendedHuckel.test.js
+   ├─ gaussianBasis.test.js
+   ├─ reactionExampleFiles.test.js
+   ├─ reactionJson.test.js
+   ├─ reactionPath.test.js
+   ├─ reactionPresets.test.js
+   ├─ reactiveSpace.test.js
+   └─ sampler.test.js
+```
 
-## 既知の制約
+## 次に伸ばすなら
 
-- 本将棋のような王手・詰み・持ち駒・打ちは未実装
-- 量子移動は非捕獲のみ
-- ヒートマップは高速化優先の近似値
-- 学習は軽量な自己対局ベースで、強い最適化までは狙っていない
-- `benchmark-report.json` は短時間で回せる低予算比較で、統計的に強い主張はしていない
-
-## 今後の改善案
-
-- 王手判定を導入した上で合法手をさらに厳密化する
-- Web Worker に AI を逃がして UI の反応を軽くする
-- 自己対局数を増やし、opening explorer を UI に出す
-- 簡易線形モデルから小さな value network へ発展させる
-- 量子分岐の重みを 50/50 固定から拡張する
-
-## この作品で採用側に伝わること
-
-- 仕様が曖昧な題材を、破綻しない範囲でルール設計できる
-- 探索アルゴリズムを UI までつないで見せられる
-- 学習済みモデルを「探索のどこに混ぜたか」を説明できる
-- 状態管理、可視化、テスト、補助文書までまとめて整えられる
-- 小規模でも中身のあるポートフォリオ実装に仕上げられる
+- secondary substrate まで広げて `ethyl` 以外も定義できるようにする
+- leaving-group / nucleophile を多原子片まで広げる
+- cube file import と同じ UI に統合する
+- point inspection / slice plane を追加して donor–acceptor 重なりを局所比較しやすくする

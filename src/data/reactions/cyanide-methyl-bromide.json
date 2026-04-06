@@ -1,0 +1,40 @@
+{
+  "id": "cyanide-methyl-bromide",
+  "name": "Cyanide + methyl bromide",
+  "equationHtml": "CN<sup>−</sup> + CH<sub>3</sub>Br → CH<sub>3</sub>CN + Br<sup>−</sup>",
+  "equationText": "CN- + CH3Br -> CH3CN + Br-",
+  "lead": "Linear donor を持つ cyanide プリセットです。reactive donor は donor-side carbon、support atom は nitrile nitrogen として扱います。",
+  "reactantsLabel": "cyanide and methyl bromide",
+  "productsLabel": "acetonitrile and bromide",
+  "donor": {
+    "element": "C",
+    "symbol": "C",
+    "name": "cyanide",
+    "template": "linear-carbon-donor",
+    "supportElement": "N",
+    "supportBondLength": 1.16,
+    "supportBondOrder": 3,
+    "supportRole": "donor-support",
+    "attachedBondLabel": "C≡N"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl bromide",
+    "leavingElement": "Br",
+    "leavingSymbol": "Br",
+    "leavingName": "bromide"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.3,
+      "transition": 2.12,
+      "product": 1.47
+    },
+    "carbonLeaving": {
+      "reactant": 1.94,
+      "transition": 2.12,
+      "product": 4.08
+    }
+  },
+  "totalCharge": -1
+}

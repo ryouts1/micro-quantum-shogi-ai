@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "name": "Hydroxide leaving-group comparison",
+  "reactions": [
+    {
+      "id": "example-lg-oh-cl",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "OH⁻ + CH₃Cl → CH₃OH + Cl⁻",
+      "shortTitle": "Example · OH⁻ + methyl chloride",
+      "description": "leaving group を Cl にした基準比較用 example JSON です。",
+      "substrateLabel": "methyl chloride",
+      "productLabel": "methanol + chloride",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃OH",
+        "distances": {
+          "reactant": 3.2,
+          "transition": 2.08,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Cl",
+        "display": "Cl⁻",
+        "atomLabel": "Cl",
+        "element": "Cl",
+        "distances": {
+          "reactant": 1.78,
+          "transition": 2.08,
+          "product": 3.85
+        }
+      }
+    },
+    {
+      "id": "example-lg-oh-br",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "OH⁻ + CH₃Br → CH₃OH + Br⁻",
+      "shortTitle": "Example · OH⁻ + methyl bromide",
+      "description": "Cl / Br / I の leaving-group 比較用 example JSON の Br ケースです。",
+      "substrateLabel": "methyl bromide",
+      "productLabel": "methanol + bromide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃OH",
+        "distances": {
+          "reactant": 3.25,
+          "transition": 2.18,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "Br",
+        "display": "Br⁻",
+        "atomLabel": "Br",
+        "element": "Br",
+        "distances": {
+          "reactant": 1.94,
+          "transition": 2.18,
+          "product": 4.1
+        }
+      }
+    },
+    {
+      "id": "example-lg-oh-i",
+      "family": "methyl-sn2",
+      "familyLabel": "methyl SN2",
+      "title": "OH⁻ + CH₃I → CH₃OH + I⁻",
+      "shortTitle": "Example · OH⁻ + methyl iodide",
+      "description": "I leaving group を含む example JSON です。acceptor 側の拡がり比較に使えます。",
+      "substrateLabel": "methyl iodide",
+      "productLabel": "methanol + iodide",
+      "totalCharge": -1,
+      "substrate": {
+        "type": "methyl",
+        "label": "CH₃"
+      },
+      "nucleophile": {
+        "symbol": "O",
+        "display": "OH⁻",
+        "atomLabel": "O",
+        "element": "O",
+        "productFragment": "CH₃OH",
+        "distances": {
+          "reactant": 3.3,
+          "transition": 2.28,
+          "product": 1.43
+        },
+        "hydrogens": {
+          "count": 1,
+          "bondLength": 0.96,
+          "polarAngleDeg": 108.5,
+          "azimuthDegs": [
+            90
+          ]
+        }
+      },
+      "leavingGroup": {
+        "symbol": "I",
+        "display": "I⁻",
+        "atomLabel": "I",
+        "element": "I",
+        "distances": {
+          "reactant": 2.14,
+          "transition": 2.28,
+          "product": 4.45
+        }
+      }
+    }
+  ]
+}

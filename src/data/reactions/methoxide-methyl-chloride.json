@@ -1,0 +1,41 @@
+{
+  "id": "methoxide-methyl-chloride",
+  "name": "Methoxide + methyl chloride",
+  "equationHtml": "CH<sub>3</sub>O<sup>−</sup> + CH<sub>3</sub>Cl → CH<sub>3</sub>OCH<sub>3</sub> + Cl<sup>−</sup>",
+  "equationText": "CH3O- + CH3Cl -> CH3OCH3 + Cl-",
+  "lead": "Bulky donor 側の例です。reactive channel は O lone pair と C–Cl σ* に絞りつつ、methoxy 側の spectator methyl は雲から外しています。",
+  "reactantsLabel": "methoxide and methyl chloride",
+  "productsLabel": "dimethyl ether and chloride",
+  "donor": {
+    "element": "O",
+    "symbol": "O",
+    "name": "methoxide",
+    "template": "methoxy-like",
+    "attachedElement": "C",
+    "attachedBondLength": 1.43,
+    "attachedAngleDeg": 109.5,
+    "attachedBondOrder": 1,
+    "attachedRole": "spectator",
+    "attachedBondLabel": "O–C"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl chloride",
+    "leavingElement": "Cl",
+    "leavingSymbol": "Cl",
+    "leavingName": "chloride"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.25,
+      "transition": 2.1,
+      "product": 1.43
+    },
+    "carbonLeaving": {
+      "reactant": 1.78,
+      "transition": 2.1,
+      "product": 3.9
+    }
+  },
+  "totalCharge": -1
+}

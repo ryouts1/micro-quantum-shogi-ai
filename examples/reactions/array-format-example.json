@@ -1,0 +1,88 @@
+[
+  {
+    "id": "example-array-nh2-br",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "NH₂⁻ + CH₃Br → CH₃NH₂ + Br⁻",
+    "shortTitle": "Example · array root / amide + methyl bromide",
+    "description": "トップレベルを { reactions: [...] } ではなく配列そのものにした array-form JSON 例です。",
+    "substrateLabel": "methyl bromide",
+    "productLabel": "methylamine + bromide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "N",
+      "display": "NH₂⁻",
+      "atomLabel": "N",
+      "element": "N",
+      "productFragment": "CH₃NH₂",
+      "distances": {
+        "reactant": 3.2,
+        "transition": 2.18,
+        "product": 1.47
+      },
+      "hydrogens": {
+        "count": 2,
+        "bondLength": 1.01,
+        "polarAngleDeg": 107.0,
+        "azimuthDegs": [
+          60,
+          -60
+        ]
+      }
+    },
+    "leavingGroup": {
+      "symbol": "Br",
+      "display": "Br⁻",
+      "atomLabel": "Br",
+      "element": "Br",
+      "distances": {
+        "reactant": 1.94,
+        "transition": 2.18,
+        "product": 4.05
+      }
+    }
+  },
+  {
+    "id": "example-array-cl-br",
+    "family": "methyl-sn2",
+    "familyLabel": "methyl SN2",
+    "title": "Cl⁻ + CH₃Br → CH₃Cl + Br⁻",
+    "shortTitle": "Example · array root / chloride + methyl bromide",
+    "description": "spectator H を持たない halide donor の array-form JSON 例です。",
+    "substrateLabel": "methyl bromide",
+    "productLabel": "chloromethane + bromide",
+    "totalCharge": -1,
+    "substrate": {
+      "type": "methyl",
+      "label": "CH₃"
+    },
+    "nucleophile": {
+      "symbol": "Cl",
+      "display": "Cl⁻",
+      "atomLabel": "Cl",
+      "element": "Cl",
+      "productFragment": "CH₃Cl",
+      "distances": {
+        "reactant": 3.18,
+        "transition": 2.14,
+        "product": 1.78
+      },
+      "hydrogens": null
+    },
+    "leavingGroup": {
+      "symbol": "Br",
+      "display": "Br⁻",
+      "atomLabel": "Br",
+      "element": "Br",
+      "distances": {
+        "reactant": 1.94,
+        "transition": 2.14,
+        "product": 4.02
+      }
+    }
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "id": "hydroxide-methyl-bromide",
+  "name": "Hydroxide + methyl bromide",
+  "equationHtml": "OH<sup>−</sup> + CH<sub>3</sub>Br → CH<sub>3</sub>OH + Br<sup>−</sup>",
+  "equationText": "OH- + CH3Br -> CH3OH + Br-",
+  "lead": "Leaving group を bromide に替えたプリセットです。reactive donor / acceptor の骨格は同じで、C–Br 由来の acceptor channel を追います。",
+  "reactantsLabel": "hydroxide and methyl bromide",
+  "productsLabel": "methanol and bromide",
+  "donor": {
+    "element": "O",
+    "symbol": "O",
+    "name": "hydroxide",
+    "template": "hydroxide-like",
+    "attachedElement": "H",
+    "attachedBondLength": 0.96,
+    "attachedAngleDeg": 108.5,
+    "attachedBondOrder": 1,
+    "attachedRole": "spectator",
+    "attachedBondLabel": "O–H"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl bromide",
+    "leavingElement": "Br",
+    "leavingSymbol": "Br",
+    "leavingName": "bromide"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.22,
+      "transition": 2.15,
+      "product": 1.43
+    },
+    "carbonLeaving": {
+      "reactant": 1.94,
+      "transition": 2.15,
+      "product": 4.05
+    }
+  },
+  "totalCharge": -1
+}

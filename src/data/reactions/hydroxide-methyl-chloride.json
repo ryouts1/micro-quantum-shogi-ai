@@ -1,0 +1,41 @@
+{
+  "id": "hydroxide-methyl-chloride",
+  "name": "Hydroxide + methyl chloride",
+  "equationHtml": "OH<sup>−</sup> + CH<sub>3</sub>Cl → CH<sub>3</sub>OH + Cl<sup>−</sup>",
+  "equationText": "OH- + CH3Cl -> CH3OH + Cl-",
+  "lead": "基準プリセット。hydroxide の donor lone pair と C–Cl σ* の SN2 チャネルを reactive-only cloud で追います。",
+  "reactantsLabel": "hydroxide and methyl chloride",
+  "productsLabel": "methanol and chloride",
+  "donor": {
+    "element": "O",
+    "symbol": "O",
+    "name": "hydroxide",
+    "template": "hydroxide-like",
+    "attachedElement": "H",
+    "attachedBondLength": 0.96,
+    "attachedAngleDeg": 108.5,
+    "attachedBondOrder": 1,
+    "attachedRole": "spectator",
+    "attachedBondLabel": "O–H"
+  },
+  "substrate": {
+    "template": "methyl-halide",
+    "name": "methyl chloride",
+    "leavingElement": "Cl",
+    "leavingSymbol": "Cl",
+    "leavingName": "chloride"
+  },
+  "distances": {
+    "donorCarbon": {
+      "reactant": 3.2,
+      "transition": 2.08,
+      "product": 1.43
+    },
+    "carbonLeaving": {
+      "reactant": 1.78,
+      "transition": 2.08,
+      "product": 3.85
+    }
+  },
+  "totalCharge": -1
+}
